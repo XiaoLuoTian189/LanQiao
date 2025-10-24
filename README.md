@@ -22,7 +22,9 @@
 ## 🖼️ 界面预览
 
 <div align="center">
-  <img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" alt="蓝桥网盘Logo" width="200" height="200">
+  <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc4676ce2.jpg" alt="蓝桥网盘">
+  <br>
+  <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc95cb893.jpg" alt="蓝桥网盘">
   <br>
   <em>蓝桥本地网盘系统 - 让文件共享变得简单</em>
 </div>
