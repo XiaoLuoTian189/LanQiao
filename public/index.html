@@ -34,21 +34,40 @@
 
         <main class="main">
             <div class="toolbar">
-                <button class="btn btn-primary" onclick="refreshFiles()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
-                        <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
-                    </svg>
-                    刷新
-                </button>
-                <button class="btn btn-danger" onclick="deleteSelected()" id="deleteBtn" disabled>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
-                        <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
-                    </svg>
-                    删除选中
-                </button>
+                <div class="toolbar-row">
+                    <button class="btn btn-primary" onclick="refreshFiles()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                        </svg>
+                        刷新列表
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteSelected()" id="deleteBtn" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                        </svg>
+                        删除选中
+                    </button>
+                    <button class="btn btn-success" onclick="createFolder()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                            <path d="M12,11H16V13H12V11Z"/>
+                        </svg>
+                        新建文件夹
+                    </button>
+                    <button class="btn btn-secondary" onclick="toggleSelectAll()" id="selectAllBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+                        </svg>
+                        <span id="selectAllText">全选</span>
+                    </button>
+                </div>
                 <div class="search-box">
                     <input type="text" id="searchInput" placeholder="搜索文件..." onkeyup="filterFiles()">
                 </div>
+            </div>
+
+            <div class="breadcrumb" id="breadcrumb">
+                <span class="breadcrumb-item current">根目录</span>
             </div>
 
             <div class="file-list" id="fileList">
@@ -68,6 +87,19 @@
             <div class="modal-buttons">
                 <button class="btn btn-primary" onclick="confirmRename()">确认</button>
                 <button class="btn btn-secondary" onclick="closeRenameModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="moveModal" style="display: none;">
+        <div class="modal-content">
+            <h3>移动文件</h3>
+            <select id="targetFolder" class="form-select">
+                <option value="">选择目标文件夹</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="confirmMove()">确认</button>
+                <button class="btn btn-secondary" onclick="closeMoveModal()">取消</button>
             </div>
         </div>
     </div>

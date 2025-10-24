@@ -1,5 +1,5 @@
 {
-  "name": "lanqiao-local-cloud-disk",
+  "name": "lanqiao-local-cloud",
   "version": "1.0.0",
   "description": "让文件共享变得简单",
   "main": "server.js",
@@ -21,8 +21,8 @@
   "pkg": {
     "assets": [
       "public/**/*",
-      "uploads/**/*",
-      "logo.png"
-    ]
+      "uploads/**/*"
+    ],
+    "icon": "favicon.ico"
   }
 }

@@ -153,11 +153,17 @@ body {
 
 .toolbar {
     display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.toolbar-row {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 10px;
 }
 
 .btn {
@@ -200,6 +206,16 @@ body {
 
 .btn-secondary:hover:not(:disabled) {
     background: var(--button-secondary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: var(--success-color);
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #218838;
     transform: translateY(-1px);
 }
 
@@ -445,9 +461,45 @@ body {
         align-self: center;
     }
     
-    .toolbar {
+    .toolbar-row {
         flex-direction: column;
         align-items: stretch;
+        gap: 8px;
+    }
+    
+    .toolbar-row .btn {
+        flex: none;
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 15px;
+        justify-content: center;
+    }
+    
+    /* 在小屏幕上将按钮分为两行 */
+    @media (max-width: 480px) {
+        .toolbar-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .toolbar-row .btn {
+            font-size: 12px;
+            padding: 8px 6px;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .toolbar-row .btn svg {
+            width: 14px;
+            height: 14px;
+            margin-right: 0;
+        }
+        
+        .toolbar-row .btn span {
+            font-size: 10px;
+            line-height: 1;
+        }
     }
     
     .search-box {
@@ -499,4 +551,105 @@ body {
         transform: translateX(0);
         opacity: 1;
     }
+}
+
+/* 文件夹相关样式 */
+.folder-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+[data-theme="dark"] .folder-item {
+    background: linear-gradient(135deg, #2d3142 0%, #3a3f52 100%);
+}
+
+.folder-icon {
+    color: #ffc107;
+}
+
+[data-theme="dark"] .folder-icon {
+    color: #ffd700;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.breadcrumb-item {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.breadcrumb-item:hover {
+    background: var(--bg-tertiary);
+}
+
+.breadcrumb-item.current {
+    color: var(--text-primary);
+    font-weight: 500;
+    cursor: default;
+}
+
+.breadcrumb-item.current:hover {
+    background: transparent;
+}
+
+.breadcrumb-separator {
+    margin: 0 5px;
+    color: var(--text-muted);
+}
+
+.form-select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.form-select:focus {
+    outline: none;
+    border-color: var(--button-primary);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.open-btn {
+    background: var(--button-primary);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.open-btn:hover {
+    background: var(--button-primary-hover);
+    transform: translateY(-1px);
+}
+
+.move-btn {
+    background: var(--warning-color);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.move-btn:hover {
+    background: #e0a800;
+    transform: translateY(-1px);
 }
