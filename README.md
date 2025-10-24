@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" style="width: 50%; height: auto;" alt="Example Image">
+<img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" style="width: 40%; height: auto;" alt="Example Image">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
@@ -153,6 +153,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
