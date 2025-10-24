@@ -1,10 +1,16 @@
+<div align="center">
+
 # 🌐 蓝桥本地网盘系统
+
+<img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" alt="蓝桥网盘Logo" width="120" height="120">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 
 一个基于 Node.js 和 Express 的本地局域网网盘系统，支持文件上传、下载、删除、重命名等功能，专为局域网环境设计,有了它您可以轻松的将电脑作为网盘和同一局域网下的所有设备/终端共享你的文件！
+
+</div>
 
 ## ✨ 特性
 
@@ -15,7 +21,11 @@
 
 ## 🖼️ 界面预览
 
-![网盘系统界面](https://via.placeholder.com/800x500/2d3142/e8eaed?text=蓝桥本地网盘系统)
+<div align="center">
+  <img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" alt="蓝桥网盘Logo" width="200" height="200">
+  <br>
+  <em>蓝桥本地网盘系统 - 让文件共享变得简单</em>
+</div>
 
 ## 🚀 快速开始
 
