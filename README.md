@@ -4,12 +4,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
-
-一个基于 Node.js 和 Express 的本地局域网网盘系统，支持文件上传、下载、删除、重命名等功能，专为局域网环境设计,有了它您可以轻松的将电脑作为网盘和同一局域网下的所有设备/终端共享你的文件！
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 
 </div>
-
+一个基于 Node.js 和 Express 的本地局域网网盘系统，支持文件上传、下载、删除、重命名等功能，专为局域网环境设计,有了它您可以轻松的将电脑作为网盘和同一局域网下的所有设备/终端共享你的文件！
 ## ✨ 特性
 
 - 🚀 **开箱即用** - 打包为单个可执行文件，无需安装环境，或者直接使用我们的发行版本！
