@@ -111,44 +111,6 @@ lanqiao-cloud-storage/
 
 可在 `server.js` 中修改 `multer` 配置的 `fileSize` 限制。
 
-## 🤝 贡献指南
-
-我们欢迎所有形式的贡献！
-
-### 如何贡献
-
-1. Fork 本仓库
-2. 创建你的特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交你的更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开一个 Pull Request
-
-### 贡献类型
-
-- 🐛 Bug修复
-- ✨ 新功能开发
-- 📚 文档改进
-- 🎨 界面优化
-- ⚡ 性能优化
-
-## 📝 更新日志
-
-### v1.0.0 (2024-10-24)
-
-- ✨ 初始版本发布
-- 🚀 支持文件上传、下载、删除、重命名
-- 🌐 支持局域网多设备访问
-- 🎨 深蓝灰色主题界面
-- 📦 打包为单个可执行文件
-
-## 🐛 问题反馈
-
-如果你发现了bug或有功能建议，请：
-
-1. 查看 [Issues](https://github.com/XiaoLuoTian189/lanqiao-cloud-storage/issues) 确认问题未被报告
-2. 创建新的 Issue 并详细描述问题
-3. 提供复现步骤和环境信息
-
 ## 📄 开源协议
 
 本项目采用 [MIT License](LICENSE) 开源协议。
@@ -169,11 +131,8 @@ MIT License 是一个宽松的开源协议，允许：
 
 **作者**: 小洛天  
 **GitHub**: [@XiaoLuoTian189](https://github.com/XiaoLuoTian189)  
-**邮箱**: [联系作者](mailto:your-email@example.com)
+**邮箱**: [联系作者](mailto:wanghaotianscimir@gmail.com)
 
-## 🙏 致谢
-
-感谢所有为这个项目做出贡献的开发者和用户！
 
 ## ⭐ 支持项目
 
@@ -183,9 +142,10 @@ MIT License 是一个宽松的开源协议，允许：
 
 <div align="center">
 
-**🌟 让文件共享变得简单 🌟**
+**🌟 LanQiao让文件共享变得简单 🌟**
 
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
