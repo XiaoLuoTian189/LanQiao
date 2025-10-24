@@ -1,10 +1,11 @@
 <div align="center">
 
-<img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" alt="蓝桥本地网盘系统" width="200" height="200">
+<img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" style="width: 100%; height: auto;" alt="Example Image">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
+[![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
+
 
 </div>
 一个基于 Node.js 和 Express 的本地局域网网盘系统，支持文件上传、下载、删除、重命名等功能，专为局域网环境设计,有了它您可以轻松的将电脑作为网盘和同一局域网下的所有设备/终端共享你的文件！
@@ -66,14 +67,16 @@ npm install -g pkg
 npm run build
 ```
 
-
+
+
 
 ## 🛠️ 技术语言（技术栈）
 
 - **后端**: Node.js + Express
 - **前端**: HTML5 + CSS3 + JavaScript
 - **文件处理**: Multer
-- **打包工具**: PKG
+- **打包工具**: PKG
+
 
 
 
@@ -150,6 +153,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
