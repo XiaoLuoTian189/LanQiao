@@ -4,17 +4,14 @@
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://www.microsoft.com/windows)
 
-一个基于 Node.js 和 Express 的本地局域网网盘系统，支持文件上传、下载、删除、重命名等功能，专为局域网环境设计。
+一个基于 Node.js 和 Express 的本地局域网网盘系统，支持文件上传、下载、删除、重命名等功能，专为局域网环境设计,有了它您可以轻松的将电脑作为网盘和同一局域网下的所有设备/终端共享你的文件！
 
 ## ✨ 特性
 
-- 🚀 **开箱即用** - 打包为单个可执行文件，无需安装环境
-- 🌐 **局域网共享** - 支持同一WiFi网络下的多设备访问
+- 🚀 **开箱即用** - 打包为单个可执行文件，无需安装环境，或者直接使用我们的发行版本！
+- 🌐 **文件共享** - 支持同一WiFi网络下的多设备访问
 - 📁 **文件管理** - 完整的文件上传、下载、删除、重命名功能
-- 🎨 **现代界面** - 深蓝灰色主题，简约美观的Web界面
 - 🔒 **本地安全** - 仅在局域网内运行，数据不离开本地网络
-- 📱 **响应式设计** - 支持桌面和移动设备访问
-- ⚡ **高性能** - 基于Express框架，快速稳定
 
 ## 🖼️ 界面预览
 
@@ -191,3 +188,4 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
