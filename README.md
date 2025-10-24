@@ -44,8 +44,8 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/XiaoLuoTian189/lanqiao-cloud-storage.git
-cd lanqiao-cloud-storage
+git clone https://github.com/XiaoLuoTian189/LanQiao.git
+cd LanQiao.git
 
 # 安装依赖
 npm install
@@ -173,6 +173,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
