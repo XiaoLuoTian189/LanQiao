@@ -22,9 +22,9 @@
 ## 🖼️ 界面预览
 
 <div align="center">
-  <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc4676ce2.jpg" alt="蓝桥网盘">
-  <br>
   <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc95cb893.jpg" alt="蓝桥网盘">
+  <br>
+  <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc4676ce2.jpg" alt="蓝桥网盘">
   <br>
   <em>蓝桥本地网盘系统 - 让文件共享变得简单</em>
 </div>
@@ -35,9 +35,9 @@
 
 ### 下载使用
 
-1. 下载 `cloud-storage.exe` 文件
+1. 下载 `发行版` 文件
 2. 双击运行程序
-3. 浏览器访问 `http://127.0.0.1:2333`
+3. 浏览器访问 `提示地址`
 4. 开始使用网盘功能
 
 ### 源码运行
