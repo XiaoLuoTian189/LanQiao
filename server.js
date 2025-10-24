@@ -166,7 +166,7 @@ function getLocalIP() {
 const server = app.listen(PORT, '0.0.0.0', () => {
   const localIP = getLocalIP();
   console.log('========================================');
-  console.log('        本地网盘系统已启动');
+  console.log('        蓝桥本地云网盘已启动');
   console.log('========================================');
   console.log(`本地访问: http://127.0.0.1:${PORT}`);
   console.log(`局域网访问: http://${localIP}:${PORT}`);
@@ -186,7 +186,7 @@ server.on('error', (err) => {
     console.log('========================================');
     console.log('        端口2333已被占用');
     console.log('========================================');
-    console.log('请检查是否有其他网盘程序正在运行');
+    console.log('请检查是否有其他蓝桥本地云网盘程序正在运行');
     console.log('或等待几秒后重新启动');
     console.log('========================================');
     console.log('按任意键退出...');
@@ -199,13 +199,13 @@ server.on('error', (err) => {
 });
 
 function gracefulShutdown() {
-  console.log('\n正在关闭网盘服务器...');
+  console.log('\n正在关闭蓝桥本地云网盘服务器...');
   server.close((err) => {
     if (err) {
       console.error('关闭服务器时出错:', err);
       process.exit(1);
     }
-    console.log('网盘服务器已关闭');
+    console.log('蓝桥本地云网盘服务器已关闭');
     process.exit(0);
   });
   

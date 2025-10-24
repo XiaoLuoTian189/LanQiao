@@ -1,12 +1,12 @@
 {
-  "name": "local-cloud-storage",
+  "name": "lanqiao-local-cloud-disk",
   "version": "1.0.0",
-  "description": "本地局域网网盘系统",
+  "description": "让文件共享变得简单",
   "main": "server.js",
   "bin": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "pkg . --targets node18-win-x64 --output cloud-storage.exe"
+    "build": "pkg . --targets node18-win-x64 --output LanQiaoCloudDisk.exe"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -21,7 +21,8 @@
   "pkg": {
     "assets": [
       "public/**/*",
-      "uploads/**/*"
+      "uploads/**/*",
+      "logo.png"
     ]
   }
 }
