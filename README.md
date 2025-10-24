@@ -35,7 +35,7 @@
 
 ### 下载使用（开箱即用）
 
-1. 下载 [LanQiaoCloud.exe](https://release-assets.githubusercontent.com/github-production-release-asset/1082296322/82a375f8-5650-491d-ab60-0a69b5997b41?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-24T05%3A15%3A36Z&rscd=attachment%3B+filename%3DLanQiaoCloud.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-24T04%3A15%3A36Z&ske=2025-10-24T05%3A15%3A36Z&sks=b&skv=2018-11-09&sig=QVvpddBWTYotWHnz%2B4sgREztv2wbim%2Bvt6snGQ6z2ZQ%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2MTI4MTEzNiwibmJmIjoxNzYxMjc5MzM2LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.KT-7NdtzZFeQCCFyGAuMohMShPpsk6gtJx1Ae6BPuB0&response-content-disposition=attachment%3B%20filename%3DLanQiaoCloud.exe&response-content-type=application%2Foctet-stream)  文件
+1. 下载 [LanQiaoCloud.exe](https://release-assets.githubusercontent.com/github-production-release-asset/1082296322/3fe79224-43eb-4889-8e6b-c08883145feb?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-24T07%3A35%3A29Z&rscd=attachment%3B+filename%3DLanQiaoCloud.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-24T06%3A34%3A48Z&ske=2025-10-24T07%3A35%3A29Z&sks=b&skv=2018-11-09&sig=dPwLNN41SacMEWoo4hs3y0S1cr0mhckKiSHn8Lf2Sk4%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2MTI5MDM4MSwibmJmIjoxNzYxMjg4NTgxLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.IsV9t3cCEhVxDY_Qv2QunfFZ2rK_rGxqj2-bLtCAvos&response-content-disposition=attachment%3B%20filename%3DLanQiaoCloud.exe&response-content-type=application%2Foctet-stream) 文件
 2. 双击运行程序
 3. 浏览器访问 `提示地址`
 4. 开始使用网盘功能
@@ -173,6 +173,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
