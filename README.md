@@ -17,6 +17,8 @@
 - 📁 **文件管理** - 完整的文件上传、下载、删除、重命名功能
 - 🔒 **本地安全** - 仅在局域网内运行，数据不离开本地网络
 
+
+
 ## 🖼️ 界面预览
 
 <div align="center">
@@ -24,6 +26,8 @@
   <br>
   <em>蓝桥本地网盘系统 - 让文件共享变得简单</em>
 </div>
+
+
 
 ## 🚀 快速开始
 
@@ -60,6 +64,8 @@ npm install -g pkg
 npm run build
 ```
 
+
+
 ## 📖 使用说明
 
 ### 基本功能
@@ -90,6 +96,8 @@ npm run build
 - **打包工具**: PKG
 - **样式**: 自定义CSS，深蓝灰色主题
 
+
+
 ## 📁 项目结构
 
 ```
@@ -105,6 +113,8 @@ lanqiao-cloud-storage/
 └── README.md                  # 项目说明
 ```
 
+
+
 ## 🔧 配置说明
 
 ### 端口配置
@@ -118,6 +128,8 @@ lanqiao-cloud-storage/
 默认最大文件大小：`100MB`
 
 可在 `server.js` 中修改 `multer` 配置的 `fileSize` 限制。
+
+
 
 ## 📄 开源协议
 
@@ -135,11 +147,15 @@ MIT License 是一个宽松的开源协议，允许：
 **要求**：
 - 📋 保留版权声明和许可证文本
 
+
+
 ## 👨‍💻 作者信息
 
 **作者**: 小洛天  
 **GitHub**: [@XiaoLuoTian189](https://github.com/XiaoLuoTian189)  
 **邮箱**: [联系作者](mailto:wanghaotianscimir@gmail.com)
+
+
 
 
 ## ⭐ 支持项目
@@ -155,5 +171,6 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
