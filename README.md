@@ -33,9 +33,9 @@
 </div>
 
 
-
+<div align="center">
 ## 🚀 快速开始
-
+</div>
 ### 下载使用（开箱即用）
 
 1. 下载 [LanQiaoCloud.exe](https://release-assets.githubusercontent.com/github-production-release-asset/1082296322/3fe79224-43eb-4889-8e6b-c08883145feb?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-10-24T07%3A35%3A29Z&rscd=attachment%3B+filename%3DLanQiaoCloud.exe&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-10-24T06%3A34%3A48Z&ske=2025-10-24T07%3A35%3A29Z&sks=b&skv=2018-11-09&sig=dPwLNN41SacMEWoo4hs3y0S1cr0mhckKiSHn8Lf2Sk4%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc2MTI5MDM4MSwibmJmIjoxNzYxMjg4NTgxLCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.IsV9t3cCEhVxDY_Qv2QunfFZ2rK_rGxqj2-bLtCAvos&response-content-disposition=attachment%3B%20filename%3DLanQiaoCloud.exe&response-content-type=application%2Foctet-stream) 文件（建议为程序主体创建一个文件夹）
@@ -71,9 +71,9 @@ npm run build
 
 
 
-
+<div align="center">
 ## 🛠️ 技术语言（技术栈）
-
+</div>
 - **后端**: Node.js + Express
 - **前端**: HTML5 + CSS3 + JavaScript
 - **文件处理**: Multer
@@ -81,9 +81,9 @@ npm run build
 
 
 
-
+<div align="center">
 ## 📁 项目结构
-
+</div>
 ```
 lanqiao-cloud/
 ├── cloud-storage.exe          # 可执行文件
@@ -98,9 +98,9 @@ lanqiao-cloud/
 ```
 
 
-
+<div align="center">
 ## 🔧 配置说明
-
+</div>
 ### 端口配置
 
 默认端口：`2333`
@@ -114,9 +114,9 @@ lanqiao-cloud/
 可在 `server.js` 中修改 `multer` 配置的 `fileSize` 限制。
 
 
-
+<div align="center">
 ## 📄 开源协议
-
+</div>
 本项目采用 [MIT License](LICENSE) 开源协议。
 
 ### MIT License 说明
@@ -132,18 +132,18 @@ MIT License 是一个宽松的开源协议，允许：
 - 📋 保留版权声明和许可证文本
 
 
-
+<div align="center">
 ## 👨‍💻 作者信息
-
+</div>
 **作者**: 小洛天  
 **GitHub**: [@XiaoLuoTian189](https://github.com/XiaoLuoTian189)  
 **邮箱**: [联系作者](mailto:wanghaotianscimir@gmail.com)
 
 
 
-
+<div align="center">
 ## ⭐ 支持项目
-
+</div>
 如果这个项目对你有帮助，请给它一个 Star！
 
 ---
@@ -155,6 +155,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
