@@ -23,9 +23,9 @@
 ## 🖼️ 界面预览
 
 <div align="center">
-  <img src="https://youke1.picui.cn/s1/2025/10/28/690015a21bade.png" alt="蓝桥网盘">
+  <img src="https://youke1.picui.cn/s1/2025/10/28/690015a21bade.png" style="width: 40%; height: auto;" alt="蓝桥网盘">
   <br>
-  <img src="https://youke1.picui.cn/s1/2025/10/28/690015a1dd8da.png" alt="蓝桥网盘">
+  <img src="https://youke1.picui.cn/s1/2025/10/28/690015a1dd8da.png" style="width: 40%; height: auto;" alt="蓝桥网盘">
   <br>
   <em>蓝桥本地网盘系统 - 让文件共享变得简单</em>
 </div>
@@ -153,6 +153,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
