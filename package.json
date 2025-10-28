@@ -23,6 +23,14 @@
       "public/**/*",
       "uploads/**/*"
     ],
-    "icon": "favicon.ico"
+    "icon": "favicon.ico",
+    "outputPath": "LanQiaoCloudDisk.exe",
+    "targets": [
+      {
+        "platform": "win32",
+        "arch": "x64",
+        "nodeRange": "18"
+      }
+    ]
   }
 }

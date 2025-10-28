@@ -3,6 +3,257 @@ let selectedFiles = new Set();
 let currentRenameFile = null;
 let currentMoveFile = null;
 let isAllSelected = false;
+let accessPassword = null;
+let isPasswordVerified = false;
+let passwordSetupSkipped = false;
+
+// 24小时免验证相关
+const VERIFICATION_EXPIRE_TIME = 24 * 60 * 60 * 1000; // 24小时（毫秒）
+const VERIFICATION_KEY = 'passwordVerificationTime';
+
+// 24小时免验证相关函数
+function isVerificationValid() {
+    const verificationTime = localStorage.getItem(VERIFICATION_KEY);
+    if (!verificationTime) {
+        return false;
+    }
+    
+    const currentTime = Date.now();
+    const savedTime = parseInt(verificationTime);
+    const timeDiff = currentTime - savedTime;
+    
+    return timeDiff < VERIFICATION_EXPIRE_TIME;
+}
+
+function saveVerificationTime() {
+    localStorage.setItem(VERIFICATION_KEY, Date.now().toString());
+}
+
+function clearVerificationTime() {
+    localStorage.removeItem(VERIFICATION_KEY);
+    localStorage.removeItem('savedPassword');
+}
+
+// 从localStorage恢复密码状态
+function restorePasswordState() {
+    const savedPassword = localStorage.getItem('savedPassword');
+    const verificationTime = localStorage.getItem(VERIFICATION_KEY);
+    
+    if (savedPassword && verificationTime && isVerificationValid()) {
+        accessPassword = savedPassword;
+        isPasswordVerified = true;
+        console.log('从localStorage恢复密码状态，24小时内免验证');
+        return true;
+    } else if (verificationTime && !isVerificationValid()) {
+        // 验证时间已过期，清理状态
+        localStorage.removeItem('savedPassword');
+        localStorage.removeItem(VERIFICATION_KEY);
+        console.log('验证时间已过期，清理密码状态');
+    }
+    
+    return false;
+}
+
+// 显示验证状态
+function showVerificationStatus() {
+    const verificationTime = localStorage.getItem(VERIFICATION_KEY);
+    if (!verificationTime) {
+        showMessage('未进行过密码验证', 'info');
+        return;
+    }
+    
+    const currentTime = Date.now();
+    const savedTime = parseInt(verificationTime);
+    const timeDiff = currentTime - savedTime;
+    const remainingTime = VERIFICATION_EXPIRE_TIME - timeDiff;
+    
+    if (remainingTime <= 0) {
+        showMessage('密码验证已过期，需要重新验证', 'warning');
+        clearVerificationTime();
+    } else {
+        const hours = Math.floor(remainingTime / (60 * 60 * 1000));
+        const minutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
+        showMessage(`密码验证有效，剩余时间：${hours}小时${minutes}分钟`, 'success');
+    }
+}
+
+// 密码验证相关函数
+async function checkPasswordRequired() {
+    // 首先尝试从localStorage恢复密码状态
+    if (restorePasswordState()) {
+        console.log('已从localStorage恢复密码状态，直接进入');
+        initializeApp();
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/check-password');
+        const data = await response.json();
+        
+        if (data.requiresPassword) {
+            // 需要密码验证
+            if (!isPasswordVerified) {
+                showPasswordModal();
+            } else {
+                initializeApp();
+            }
+        } else if (!data.hasBeenAsked) {
+            // 首次访问且未询问过密码设置
+            showPasswordSetupModal();
+        } else {
+            initializeApp();
+        }
+    } catch (error) {
+        console.error('检查密码状态失败:', error);
+        initializeApp();
+    }
+}
+
+function showPasswordSetupModal() {
+    document.getElementById('passwordSetupModal').style.display = 'flex';
+    document.getElementById('setupPasswordInput').focus();
+}
+
+function closePasswordSetupModal() {
+    document.getElementById('passwordSetupModal').style.display = 'none';
+    document.getElementById('setupPasswordInput').value = '';
+    document.getElementById('confirmPasswordInput').value = '';
+}
+
+async function setPassword() {
+    const password = document.getElementById('setupPasswordInput').value.trim();
+    const confirmPassword = document.getElementById('confirmPasswordInput').value.trim();
+    
+    if (!password) {
+        showMessage('请输入密码', 'error');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        showMessage('两次输入的密码不一致', 'error');
+        return;
+    }
+    
+    if (password.length < 4) {
+        showMessage('密码长度至少4位', 'error');
+        return;
+    }
+    
+    try {
+        const response = await fetch('/api/set-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password: password })
+        });
+        
+        if (response.ok) {
+            accessPassword = password;
+            isPasswordVerified = true;
+            localStorage.setItem('savedPassword', password); // 保存密码到localStorage
+            saveVerificationTime(); // 保存验证时间
+            closePasswordSetupModal();
+            initializeApp();
+            showMessage('密码设置成功！24小时内无需再次验证', 'success');
+        } else {
+            showMessage('密码设置失败', 'error');
+        }
+    } catch (error) {
+        showMessage('密码设置失败: ' + error.message, 'error');
+    }
+}
+
+async function skipPasswordSetup() {
+    try {
+        const response = await fetch('/api/skip-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            closePasswordSetupModal();
+            initializeApp();
+            showMessage('已跳过密码设置', 'info');
+        } else {
+            showMessage('跳过密码设置失败', 'error');
+        }
+    } catch (error) {
+        showMessage('跳过密码设置失败: ' + error.message, 'error');
+    }
+}
+
+function showPasswordModal() {
+    document.getElementById('passwordModal').style.display = 'flex';
+    document.getElementById('passwordInput').focus();
+}
+
+function closePasswordModal() {
+    document.getElementById('passwordModal').style.display = 'none';
+    document.getElementById('passwordInput').value = '';
+}
+
+async function verifyPassword() {
+    const password = document.getElementById('passwordInput').value.trim();
+    if (!password) {
+        showMessage('请输入密码', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/verify-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ password: password })
+        });
+
+        const data = await response.json();
+        if (data.valid) {
+            accessPassword = password;
+            isPasswordVerified = true;
+            localStorage.setItem('savedPassword', password); // 保存密码到localStorage
+            saveVerificationTime(); // 保存验证时间
+            closePasswordModal();
+            initializeApp();
+            showMessage('密码验证成功，24小时内无需再次验证', 'success');
+        } else {
+            showMessage('密码错误，请重新输入', 'error');
+            document.getElementById('passwordInput').value = '';
+        }
+    } catch (error) {
+        showMessage('密码验证失败: ' + error.message, 'error');
+    }
+}
+
+// 添加密码到请求头
+function addPasswordToHeaders(options = {}) {
+    if (accessPassword) {
+        options.headers = options.headers || {};
+        options.headers['x-access-password'] = accessPassword;
+        console.log('添加密码头部到请求:', options.url || '未知请求');
+    } else {
+        console.log('没有密码，跳过添加头部');
+    }
+    return options;
+}
+
+// UTF-8 Base64解码函数
+function decodeUTF8Base64(encodedString) {
+    try {
+        const binaryString = atob(encodedString);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return new TextDecoder('utf-8').decode(bytes);
+    } catch (e) {
+        return encodedString; // 解码失败，返回原始字符串
+    }
+}
 
 // 主题切换功能
 function initializeTheme() {
@@ -41,7 +292,7 @@ function setTheme(theme) {
 
 document.addEventListener('DOMContentLoaded', function() {
     initializeTheme();
-    initializeApp();
+    checkPasswordRequired();
 });
 
 function initializeApp() {
@@ -127,10 +378,11 @@ async function uploadFiles(fileList) {
             formData.append('targetFolder', targetFolder);
         }
 
-        const response = await fetch('/api/upload', {
+        const options = addPasswordToHeaders({
             method: 'POST',
             body: formData
         });
+        const response = await fetch('/api/upload', options);
 
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -162,7 +414,17 @@ async function uploadFiles(fileList) {
 
 async function loadFiles() {
     try {
-        const response = await fetch('/api/files');
+        const options = addPasswordToHeaders();
+        const response = await fetch('/api/files', options);
+        
+        if (response.status === 401) {
+            const data = await response.json();
+            if (data.requiresPassword) {
+                isPasswordVerified = false;
+                showPasswordModal();
+                return;
+            }
+        }
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -180,6 +442,12 @@ async function loadFiles() {
         isAllSelected = false;
         updateSelectAllButtonState();
         renderFiles();
+        
+        // 清除面包屑导航
+        const breadcrumb = document.getElementById('breadcrumb');
+        if (breadcrumb) {
+            breadcrumb.innerHTML = '';
+        }
     } catch (error) {
         showMessage('加载文件列表失败: ' + error.message, 'error');
     }
@@ -497,8 +765,8 @@ function deleteSelected() {
     if (confirm(`确定要删除选中的 ${selectedFiles.size} 个文件吗？`)) {
         showLoading(true);
         
-        const deletePromises = Array.from(selectedFiles).map(filename => 
-            fetch(`/api/files/${filename}`, { method: 'DELETE' })
+        const deletePromises = Array.from(selectedFiles).map(filename =>
+            fetch(getFileApiPath(filename), addPasswordToHeaders({ method: 'DELETE' }))
         );
         
         Promise.all(deletePromises).then(() => {
@@ -518,9 +786,11 @@ function deleteSelected() {
 async function deleteFile(filename) {
     if (confirm(`确定要删除文件 "${filename}" 吗？`)) {
         try {
-            const response = await fetch(`/api/files/${filename}`, {
+            const options = addPasswordToHeaders({
                 method: 'DELETE'
             });
+            const apiPath = getFileApiPath(filename);
+            const response = await fetch(apiPath, options);
             
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -541,8 +811,55 @@ async function deleteFile(filename) {
     }
 }
 
-function downloadFile(filename) {
-    window.open(`/api/download/${filename}`, '_blank');
+async function downloadFile(filename) {
+    try {
+        const apiPath = getFileApiPath(filename, 'download');
+        const options = addPasswordToHeaders();
+        
+        const response = await fetch(apiPath, options);
+        
+        if (!response.ok) {
+            if (response.status === 401) {
+                const data = await response.json();
+                if (data.requiresPassword) {
+                    isPasswordVerified = false;
+                    showPasswordModal();
+                    return;
+                }
+            }
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        // 获取文件名用于下载
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let downloadFilename = filename;
+        
+        if (contentDisposition) {
+            const filenameMatch = contentDisposition.match(/filename\*=UTF-8''(.+)/);
+            if (filenameMatch) {
+                downloadFilename = decodeURIComponent(filenameMatch[1]);
+            } else {
+                const filenameMatch2 = contentDisposition.match(/filename="(.+)"/);
+                if (filenameMatch2) {
+                    downloadFilename = filenameMatch2[1];
+                }
+            }
+        }
+        
+        // 创建blob并下载
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = downloadFilename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        
+    } catch (error) {
+        showMessage('下载失败: ' + error.message, 'error');
+    }
 }
 
 function openRenameModal(filename) {
@@ -550,15 +867,38 @@ function openRenameModal(filename) {
     // 尝试解码Base64编码的文件名用于显示
     let displayName = filename;
     try {
-        const nameWithoutExt = filename.substring(0, filename.lastIndexOf('.'));
-        const ext = filename.substring(filename.lastIndexOf('.'));
+        // 检查是否有扩展名
+        const lastDotIndex = filename.lastIndexOf('.');
+        let nameWithoutExt, ext;
+        
+        if (lastDotIndex > 0) {
+            // 有扩展名的文件
+            nameWithoutExt = filename.substring(0, lastDotIndex);
+            ext = filename.substring(lastDotIndex);
+        } else {
+            // 没有扩展名的文件夹
+            nameWithoutExt = filename;
+            ext = '';
+        }
+        
+        // 首先检查是否是带时间戳的旧格式
         const parts = nameWithoutExt.split('_');
         if (parts.length >= 2) {
             const encodedName = parts.slice(0, -1).join('_'); // 除了最后的时间戳部分
-            // 尝试Base64解码
+            // 尝试Base64解码 - 使用正确的UTF-8解码方法
             try {
-                const decoded = atob(encodedName);
+                const decoded = decodeUTF8Base64(encodedName);
                 // 检查解码后是否包含中文字符
+                if (/[\u4e00-\u9fa5]/.test(decoded)) {
+                    displayName = decoded + ext;
+                }
+            } catch (e) {
+                // Base64解码失败，使用原始文件名
+            }
+        } else {
+            // 没有时间戳的情况，可能是纯Base64编码的文件名（新格式）
+            try {
+                const decoded = decodeUTF8Base64(nameWithoutExt);
                 if (/[\u4e00-\u9fa5]/.test(decoded)) {
                     displayName = decoded + ext;
                 }
@@ -590,15 +930,38 @@ async function confirmRename() {
     // 解码当前文件名用于比较
     let currentDisplayName = currentRenameFile;
     try {
-        const nameWithoutExt = currentRenameFile.substring(0, currentRenameFile.lastIndexOf('.'));
-        const ext = currentRenameFile.substring(currentRenameFile.lastIndexOf('.'));
+        // 检查是否有扩展名
+        const lastDotIndex = currentRenameFile.lastIndexOf('.');
+        let nameWithoutExt, ext;
+        
+        if (lastDotIndex > 0) {
+            // 有扩展名的文件
+            nameWithoutExt = currentRenameFile.substring(0, lastDotIndex);
+            ext = currentRenameFile.substring(lastDotIndex);
+        } else {
+            // 没有扩展名的文件夹
+            nameWithoutExt = currentRenameFile;
+            ext = '';
+        }
+        
+        // 首先检查是否是带时间戳的旧格式
         const parts = nameWithoutExt.split('_');
         if (parts.length >= 2) {
             const encodedName = parts.slice(0, -1).join('_'); // 除了最后的时间戳部分
-            // 尝试Base64解码
+            // 尝试Base64解码 - 使用正确的UTF-8解码方法
             try {
-                const decoded = atob(encodedName);
+                const decoded = decodeUTF8Base64(encodedName);
                 // 检查解码后是否包含中文字符
+                if (/[\u4e00-\u9fa5]/.test(decoded)) {
+                    currentDisplayName = decoded + ext;
+                }
+            } catch (e) {
+                // Base64解码失败，使用原始文件名
+            }
+        } else {
+            // 没有时间戳的情况，可能是纯Base64编码的文件名（新格式）
+            try {
+                const decoded = decodeUTF8Base64(nameWithoutExt);
                 if (/[\u4e00-\u9fa5]/.test(decoded)) {
                     currentDisplayName = decoded + ext;
                 }
@@ -616,19 +979,16 @@ async function confirmRename() {
     }
     
     try {
-        // 如果新文件名包含中文字符，进行Base64编码
-        let encodedNewName = newName;
-        if (/[\u4e00-\u9fa5]/.test(newName)) {
-            encodedNewName = btoa(unescape(encodeURIComponent(newName)));
-        }
-        
-        const response = await fetch(`/api/files/${currentRenameFile}`, {
+        // 直接发送原始文件名，让服务器端处理编码
+        const options = addPasswordToHeaders({
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ newName: encodedNewName })
+            body: JSON.stringify({ newName: newName })
         });
+        const apiPath = getFileApiPath(currentRenameFile);
+        const response = await fetch(apiPath, options);
         
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -664,7 +1024,8 @@ function openFolder(folderName) {
 function loadFolderContents(folderName) {
     showLoading(true);
     
-    fetch(`/api/folders/${folderName}`)
+    const options = addPasswordToHeaders();
+    fetch(`/api/folders/${folderName}`, options)
         .then(response => response.json())
         .then(folderFiles => {
             files = folderFiles;
@@ -682,13 +1043,50 @@ function loadFolderContents(folderName) {
         });
 }
 
+// 获取当前文件操作的API路径前缀
+function getApiPrefix() {
+    return currentFolder ? `/api/folders/${currentFolder}` : '/api';
+}
+
+// 获取当前文件操作的API路径
+function getFileApiPath(filename, operation = 'files') {
+    if (currentFolder) {
+        if (operation === 'move') {
+            return `/api/folders/${currentFolder}/files/${filename}/move`;
+        } else if (operation === 'download') {
+            return `/api/folders/${currentFolder}/files/${filename}`;
+        } else {
+            return `/api/folders/${currentFolder}/${operation}/${filename}`;
+        }
+    } else {
+        if (operation === 'move') {
+            return `/api/files/${filename}/move`;
+        } else if (operation === 'download') {
+            return `/api/download/${filename}`;
+        } else {
+            return `/api/${operation}/${filename}`;
+        }
+    }
+}
+
+function goBackToRoot() {
+    currentFolder = null;
+    loadFiles();
+}
+
+function goBackToParent() {
+    if (currentFolder) {
+        goBackToRoot();
+    }
+}
+
 function updateBreadcrumb(folderName) {
     const breadcrumb = document.getElementById('breadcrumb');
     if (breadcrumb) {
-        // 解码文件夹名称用于显示
+        // 解码文件夹名称用于显示 - 使用正确的UTF-8解码方法
         let displayFolderName = folderName;
         try {
-            const decoded = atob(folderName);
+            const decoded = decodeUTF8Base64(folderName);
             if (/[\u4e00-\u9fa5]/.test(decoded)) {
                 displayFolderName = decoded;
             }
@@ -697,7 +1095,7 @@ function updateBreadcrumb(folderName) {
         }
         
         breadcrumb.innerHTML = `
-            <span class="breadcrumb-item" onclick="goToRoot()">根目录</span>
+            <span class="breadcrumb-item" onclick="goBackToRoot()">根目录</span>
             <span class="breadcrumb-separator">></span>
             <span class="breadcrumb-item current">${displayFolderName}</span>
         `;
@@ -719,13 +1117,14 @@ function createFolder() {
     
     showLoading(true);
     
-    fetch('/api/folders', {
+    const options = addPasswordToHeaders({
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ folderName: folderName })
-    })
+    });
+    fetch('/api/folders', options)
     .then(response => response.json())
     .then(result => {
         showMessage('文件夹创建成功！', 'success');
@@ -746,13 +1145,25 @@ function openMoveModal(filename) {
 }
 
 function loadFoldersForMove() {
-    fetch('/api/files')
+    const options = addPasswordToHeaders();
+    fetch('/api/files', options)
         .then(response => response.json())
         .then(files => {
             const folders = files.filter(file => file.isDirectory);
             const select = document.getElementById('targetFolder');
             select.innerHTML = '<option value="">选择目标文件夹</option>';
+            
+            // 添加移动到根目录的选项
+            const rootOption = document.createElement('option');
+            rootOption.value = 'ROOT';
+            rootOption.textContent = '根目录';
+            select.appendChild(rootOption);
+            
             folders.forEach(folder => {
+                // 如果当前在文件夹中，不显示当前文件夹
+                if (currentFolder && folder.name === currentFolder) {
+                    return;
+                }
                 const option = document.createElement('option');
                 option.value = folder.name;
                 option.textContent = folder.displayName || folder.name;
@@ -773,18 +1184,40 @@ function confirmMove() {
     
     showLoading(true);
     
-    fetch(`/api/files/${currentMoveFile}/move`, {
+    const options = addPasswordToHeaders({
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ targetFolder: targetFolder })
+        body: JSON.stringify({ 
+            targetFolder: targetFolder === 'ROOT' ? '' : targetFolder 
+        })
+    });
+    
+    const apiPath = getFileApiPath(currentMoveFile, 'move');
+    fetch(apiPath, options)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+            return response.text().then(text => {
+                throw new Error(`服务器返回非JSON响应: ${text.substring(0, 100)}`);
+            });
+        }
+        
+        return response.json();
     })
-    .then(response => response.json())
     .then(result => {
         showMessage('文件移动成功！', 'success');
         closeMoveModal();
-        loadFiles();
+        if (currentFolder) {
+            loadFolderContents(currentFolder);
+        } else {
+            loadFiles();
+        }
     })
     .catch(error => {
         showMessage('文件移动失败: ' + error.message, 'error');
@@ -804,8 +1237,11 @@ function filterFiles() {
     const fileItems = document.querySelectorAll('.file-item');
     
     fileItems.forEach(item => {
-        const filename = item.dataset.filename.toLowerCase();
-        if (filename.includes(searchTerm)) {
+        // 获取显示的文件名而不是原始文件名
+        const fileNameElement = item.querySelector('.file-name');
+        const displayName = fileNameElement ? fileNameElement.textContent.toLowerCase() : '';
+        
+        if (displayName.includes(searchTerm)) {
             item.style.display = 'block';
         } else {
             item.style.display = 'none';
@@ -815,6 +1251,27 @@ function filterFiles() {
 
 function showLoading(show) {
     document.getElementById('loading').style.display = show ? 'flex' : 'none';
+}
+
+// 切换服务器日志状态
+async function toggleServerLogging() {
+    try {
+        const response = await fetch('/api/toggle-logging', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        if (response.ok) {
+            const data = await response.json();
+            showMessage(data.message, 'success');
+        } else {
+            showMessage('切换日志状态失败', 'error');
+        }
+    } catch (error) {
+        showMessage('切换日志状态失败: ' + error.message, 'error');
+    }
 }
 
 function showMessage(message, type) {
@@ -861,8 +1318,13 @@ document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeRenameModal();
     }
-    if (e.key === 'F5' || (e.ctrlKey && e.key === 'r')) {
+    if (e.key === 'F5') {
         e.preventDefault();
         refreshFiles();
+    }
+    // Ctrl+R 用于切换日志状态
+    if (e.ctrlKey && e.key === 'r') {
+        e.preventDefault();
+        toggleServerLogging();
     }
 });

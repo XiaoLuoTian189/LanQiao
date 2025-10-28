@@ -80,6 +80,33 @@
         </div>
     </div>
 
+    <!-- 密码设置模态框 -->
+    <div class="modal" id="passwordSetupModal" style="display: none;">
+        <div class="modal-content">
+            <h3>🔒 设置访问密码</h3>
+            <p>为了保护您的文件安全，建议设置访问密码</p>
+            <input type="password" id="setupPasswordInput" placeholder="请输入访问密码">
+            <input type="password" id="confirmPasswordInput" placeholder="请再次输入密码确认">
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="setPassword()">设置密码</button>
+                <button class="btn btn-secondary" onclick="skipPasswordSetup()">跳过设置</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 密码输入模态框 -->
+    <div class="modal" id="passwordModal" style="display: none;">
+        <div class="modal-content">
+            <h3>🔒 访问密码验证</h3>
+            <p>请输入访问密码以继续使用网盘功能</p>
+            <input type="password" id="passwordInput" placeholder="请输入访问密码">
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="verifyPassword()">确认</button>
+                <button class="btn btn-secondary" onclick="closePasswordModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="renameModal" style="display: none;">
         <div class="modal-content">
             <h3>重命名文件</h3>
