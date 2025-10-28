@@ -23,6 +23,7 @@
 ## 🖼️ 界面预览
 
 <div align="center">
+  <div style="display:flex;justify-content:center;">
   <table>
  <tr>
    <td><img src="https://youke1.picui.cn/s1/2025/10/28/690015a21bade.png" style="width: 50%; height: auto; alt="图片1"></td>
@@ -155,6 +156,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
