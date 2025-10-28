@@ -17,15 +17,15 @@
 - 🌐 **文件共享** - 支持同一WiFi网络下的多设备访问
 - 📁 **文件管理** - 完整的文件上传、下载、删除、重命名功能
 - 🔒 **本地安全** - 仅在局域网内运行，数据不离开本地网络
-
+- 🔒 **密码验证** - 支持设置访问密码让你的文件更加安全
 
 
 ## 🖼️ 界面预览
 
 <div align="center">
-  <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc95cb893.jpg" alt="蓝桥网盘">
+  <img src="https://youke1.picui.cn/s1/2025/10/28/690015a21bade.png" alt="蓝桥网盘">
   <br>
-  <img src="https://youke1.picui.cn/s1/2025/10/24/68fafc4676ce2.jpg" alt="蓝桥网盘">
+  <img src="https://youke1.picui.cn/s1/2025/10/28/690015a1dd8da.png" alt="蓝桥网盘">
   <br>
   <em>蓝桥本地网盘系统 - 让文件共享变得简单</em>
 </div>
@@ -153,6 +153,7 @@ MIT License 是一个宽松的开源协议，允许：
 Made with ❤️ by [小洛天](https://github.com/XiaoLuoTian189)
 
 </div>
+
 
 
 
