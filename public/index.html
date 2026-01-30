@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>蓝桥本地云网盘</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                <svg id="themeIcon" viewBox="0 0 24 24">
+                    <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+                </svg>
+                <span id="themeText">深色模式</span>
+            </button>
+            <h1>
+                <img src="LOGOWEB.png" alt="蓝桥网盘" style="max-width: 200px; max-height: 200px; width: auto; height: auto; vertical-align: middle;">
+            </h1>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content">
+                    <div class="upload-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            <path d="M12,12L16,16H13.5V19H10.5V16H8L12,12Z"/>
+                        </svg>
+                    </div>
+                    <p>点击或拖拽文件到此处上传</p>
+                    <input type="file" id="fileInput" multiple style="display: none;">
+                </div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="toolbar">
+                <div class="toolbar-row">
+                    <button class="btn btn-primary" onclick="refreshFiles()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"/>
+                        </svg>
+                        刷新列表
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteSelected()" id="deleteBtn" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                        </svg>
+                        删除选中
+                    </button>
+                    <button class="btn btn-success" onclick="createFolder()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z"/>
+                            <path d="M12,11H16V13H12V11Z"/>
+                        </svg>
+                        新建文件夹
+                    </button>
+                    <button class="btn btn-secondary" onclick="toggleSelectAll()" id="selectAllBtn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 5px;">
+                            <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z"/>
+                        </svg>
+                        <span id="selectAllText">全选</span>
+                    </button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索文件..." onkeyup="filterFiles()">
+                </div>
+            </div>
+
+            <div class="breadcrumb" id="breadcrumb">
+                <span class="breadcrumb-item current">根目录</span>
+            </div>
+
+            <div class="file-list" id="fileList">
+            </div>
+        </main>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>处理中...</p>
+        </div>
+    </div>
+
+    <!-- 密码设置模态框 -->
+    <div class="modal" id="passwordSetupModal" style="display: none;">
+        <div class="modal-content">
+            <h3>🔒 设置访问密码</h3>
+            <p>为了保护您的文件安全，建议设置访问密码</p>
+            <input type="password" id="setupPasswordInput" placeholder="请输入访问密码">
+            <input type="password" id="confirmPasswordInput" placeholder="请再次输入密码确认">
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="setPassword()">设置密码</button>
+                <button class="btn btn-secondary" onclick="skipPasswordSetup()">跳过设置</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 密码输入模态框 -->
+    <div class="modal" id="passwordModal" style="display: none;">
+        <div class="modal-content">
+            <h3>🔒 访问密码验证</h3>
+            <p>请输入访问密码以继续使用网盘功能</p>
+            <input type="password" id="passwordInput" placeholder="请输入访问密码">
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="verifyPassword()">确认</button>
+                <button class="btn btn-secondary" onclick="closePasswordModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="renameModal" style="display: none;">
+        <div class="modal-content">
+            <h3>重命名文件</h3>
+            <input type="text" id="newFileName" placeholder="输入新文件名">
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="confirmRename()">确认</button>
+                <button class="btn btn-secondary" onclick="closeRenameModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="moveModal" style="display: none;">
+        <div class="modal-content">
+            <h3>移动文件</h3>
+            <select id="targetFolder" class="form-select">
+                <option value="">选择目标文件夹</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="confirmMove()">确认</button>
+                <button class="btn btn-secondary" onclick="closeMoveModal()">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

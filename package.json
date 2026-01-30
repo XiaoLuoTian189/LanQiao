@@ -1,0 +1,36 @@
+{
+  "name": "lanqiao-local-cloud",
+  "version": "1.0.0",
+  "description": "让文件共享变得简单",
+  "main": "server.js",
+  "bin": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "pkg . --targets node18-win-x64 --output LanQiaoCloudDisk.exe"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "fs-extra": "^11.1.1",
+    "multer": "^1.4.5-lts.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  },
+  "pkg": {
+    "assets": [
+      "public/**/*",
+      "uploads/**/*"
+    ],
+    "icon": "favicon.ico",
+    "outputPath": "LanQiaoCloudDisk.exe",
+    "targets": [
+      {
+        "platform": "win32",
+        "arch": "x64",
+        "nodeRange": "18"
+      }
+    ]
+  }
+}
