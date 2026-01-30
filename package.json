@@ -1,6 +1,6 @@
 {
   "name": "lanqiao-local-cloud",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "让文件共享变得简单",
   "main": "server.js",
   "bin": "server.js",
