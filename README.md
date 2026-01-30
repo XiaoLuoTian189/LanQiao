@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://youke1.picui.cn/s1/2025/10/24/68faf25b9cf6f.png" alt="蓝桥本地网盘系统" width="200" height="200">
+<img src="https://raw.githubusercontent.com/XiaoLuoTian189/LanQiao/refs/heads/main/public/LOGOWEB.png" alt="蓝桥本地网盘系统" width="200" height="200">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green.svg)](https://nodejs.org/)
